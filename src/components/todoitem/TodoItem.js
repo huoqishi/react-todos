@@ -8,7 +8,7 @@ class TodoItem extends React.Component{
             <li>
                 <div className="view">
                  <input className="toggle" type="checkbox" />
-                            <label>Buy a unicorn</label>
+                            <label>{this.props.myitem.name}</label>
                             <button className="destroy"></button>
                         </div>
                         <input className="edit" value="Rule the web" />
