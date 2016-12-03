@@ -4,7 +4,7 @@ import TopLess from './Top.less';
 
 // TodoItem
 import TodoItem from '../todoitem/TodoItem.js';
-import Footer from '../footer/Footer.js'
+import Footer from   '../footer/Footer.js'
 
 // 2.创建组件
 class Top extends React.Component{
@@ -16,11 +16,11 @@ class Top extends React.Component{
             {id:1, name:'小胆',completed:true },
             {id:2, name:'小月',completed:true },
             {id:3, name:'小旦',completed:true },
-            {id:4, name:'小一',completed:true }
+            {id:4, name:'小一',completed:true,isShowing:false}
             ],
             newtodos:''// 这是新添加的任务名
         }
-    }   
+    }
     render(){
         return(
             <section className="todoapp">
@@ -38,7 +38,14 @@ class Top extends React.Component{
                 <ul className="todo-list">
                     {
                         this.state.data.map( item => {
-                            return (<TodoItem  key={item.id} myitem={item} />)
+                            return (
+                                <TodoItem  
+                                key={item.id} 
+                                myitem={item} 
+                                mychangeTodoItem={this.changeTodoItem.bind(this)}
+
+                                />
+                                )
                         })
                     }
                 </ul>
@@ -46,6 +53,20 @@ class Top extends React.Component{
             <Footer />
         </section>
             )
+    }
+    // 这个方法用来当前任务的内容
+    changeTodoItem(item){
+        // 遍历this.state.data
+    let newData =   this.state.data.map( tmp =>{
+            if(tmp.id == item.id){
+                tmp.name = item.name
+            }
+            return tmp
+        } )
+
+    this.setState({
+        data: newData
+     })
     }
 
     // 这个方法里，我们只是获取文本的值，然后赋给this.state.newtodos
@@ -63,7 +84,7 @@ class Top extends React.Component{
         if(!this.state.newtodos.trim()){
             return
         }
-        
+
         // 1.得到用户输入的内容
         //this.state.newtodos
         // 2.把内容添加到this.state.data中。
